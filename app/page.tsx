@@ -182,9 +182,11 @@ export default function HomePage() {
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex-1 max-h-[72vh] overflow-hidden shadow-[0_25px_80px_-12px_rgba(0,0,0,0.5)] bg-[#0f151f]"
+          className="relative flex-1 max-h-[72vh] overflow-hidden bg-[#0f151f]"
           style={{
             clipPath: 'url(#folderClip)',
+            boxShadow:
+              '0 28px 80px -26px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -18px 32px rgba(0,0,0,0.5)',
           }}
         >
           {/* Video Background - Scaled to crop black edges */}
@@ -231,6 +233,26 @@ export default function HomePage() {
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             />
           </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 28%, rgba(0,0,0,0) 55%)',
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(140% 120% at 10% 0%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 40%, rgba(0,0,0,0.35) 100%)',
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-[1px] border border-white/10"
+          />
         </motion.div>
 
         {/* Hero Text Content - Below the folder */}
