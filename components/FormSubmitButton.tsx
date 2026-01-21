@@ -71,7 +71,7 @@ export default function FormSubmitButton({
             height="1em"
             width="1em"
             strokeWidth="0.5px"
-            stroke="black"
+            stroke="currentColor"
           >
             <path
               fill="currentColor"

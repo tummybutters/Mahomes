@@ -2,29 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 :root {
-  /* Light theme backgrounds */
-  --bg-primary: #FAFAF8;
-  --bg-secondary: #F5F5F2;
-  --bg-tertiary: #EDEDE8;
-  --bg-card: #FFFFFF;
+  /* Dark theme backgrounds */
+  --bg-primary: #0A0B0D;
+  --bg-secondary: #0F1217;
+  --bg-tertiary: #141A22;
+  --bg-card: #0F151F;
 
   /* Accent colors */
-  --accent-primary: #1E3A5F;
-  --accent-light: #4A7BA7;
-  --accent-warm: #8B7355;
+  --accent-primary: #0B1F3A;
+  --accent-light: #163A63;
+  --accent-warm: #B08A3C;
 
   /* Text colors */
-  --text-primary: #1A1A1A;
-  --text-secondary: #4A4A4A;
-  --text-muted: #7A7A7A;
-  --text-light: #A8A8A8;
+  --text-primary: #F5F7FA;
+  --text-secondary: #D6DDE6;
+  --text-muted: #9AA6B2;
+  --text-light: #6F7B88;
 
   /* Borders */
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-medium: rgba(0, 0, 0, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
 }
 
 * {
@@ -50,25 +50,25 @@ a {
   text-decoration: none;
 }
 
-/* Glassmorphic utilities - optimized for light theme */
+/* Glassmorphic utilities - optimized for dark theme */
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(15, 19, 27, 0.72);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   }
 
   .glass-light {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(20, 26, 36, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
   }
 
   .glass-dark {
-    background: rgba(30, 58, 95, 0.95);
+    background: rgba(8, 12, 18, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);

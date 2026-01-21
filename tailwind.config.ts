@@ -8,25 +8,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Light theme backgrounds
-        'bg-primary': '#FAFAF8',      // Warm off-white
-        'bg-secondary': '#F5F5F2',    // Soft cream
-        'bg-tertiary': '#EDEDE8',     // Light warm gray
-        'bg-card': '#FFFFFF',         // Pure white for cards
+        // Dark, Wall Street-inspired palette
+        'bg-primary': '#0A0B0D',      // Near black
+        'bg-secondary': '#0F1217',    // Charcoal
+        'bg-tertiary': '#141A22',     // Deep slate
+        'bg-card': '#0F151F',         // Navy-black card
 
-        // Accent colors - refined navy palette
-        'accent-primary': '#1E3A5F',  // Deep navy
-        'accent-light': '#4A7BA7',    // Soft steel blue
-        'accent-warm': '#8B7355',     // Warm bronze accent
+        // Accent colors
+        'accent-primary': '#0B1F3A',  // Deep navy
+        'accent-light': '#163A63',    // Lighter navy
+        'accent-warm': '#B08A3C',     // Minimal gold
 
-        // Text colors for light backgrounds
-        'text-primary': '#1A1A1A',    // Near black
-        'text-secondary': '#4A4A4A',  // Charcoal
-        'text-muted': '#7A7A7A',      // Medium gray
-        'text-light': '#A8A8A8',      // Light gray
+        // Text colors for dark backgrounds
+        'text-primary': '#F5F7FA',    // Off-white
+        'text-secondary': '#D6DDE6',  // Soft gray
+        'text-muted': '#9AA6B2',      // Muted gray
+        'text-light': '#6F7B88',      // Cool gray
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Times New Roman', 'serif'],
       },
     },
   },

@@ -13,7 +13,7 @@ export default function Footer() {
     <footer
       className="relative"
       style={{
-        background: 'linear-gradient(180deg, #c4d6e6 0%, #a8c0d8 20%, #7a9cc7 40%, #5d7fb5 60%, #4a6fa5 80%, #3d5a87 100%)',
+        background: 'linear-gradient(180deg, #0a111b 0%, #0a0f15 40%, #07090d 70%, #050608 100%)',
       }}
     >
       {/* Subtle texture */}

@@ -12,7 +12,7 @@ interface ActionButtonProps {
 export default function ActionButton({ children, onClick, className = '' }: ActionButtonProps) {
   return (
     <button className={`${styles.actionButton} ${className}`} onClick={onClick}>
-      {children}
+      <span className={styles.actionLabel}>{children}</span>
       <svg className={styles.actionIcon} viewBox="0 0 24 24" fill="currentColor">
         <path
           fillRule="evenodd"

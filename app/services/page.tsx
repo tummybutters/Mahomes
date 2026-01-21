@@ -16,9 +16,9 @@ export default function ServicesPage() {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex-1 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]"
+          className="relative flex-1 rounded-xl md:rounded-2xl overflow-hidden shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]"
           style={{
-            background: 'linear-gradient(135deg, #F9F9F7 0%, #F0F0EB 50%, #E8E8E1 100%)',
+            background: 'linear-gradient(135deg, #050608 0%, #0a0f15 55%, #0b1320 100%)',
           }}
         >
           {/* Subtle grain texture overlay */}
@@ -39,10 +39,10 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="w-[90%] md:w-[70%] aspect-[16/9] rounded-2xl md:rounded-3xl bg-white border border-black/5 flex items-center justify-center shadow-2xl"
+              className="w-[90%] md:w-[70%] aspect-[16/9] rounded-xl md:rounded-2xl bg-bg-card border border-white/10 flex items-center justify-center shadow-2xl shadow-black/40"
             >
               {/* Play button placeholder */}
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent-primary/5 backdrop-blur-sm border border-accent-primary/10 flex items-center justify-center cursor-pointer hover:bg-accent-primary/10 hover:scale-105 transition-all duration-300 group">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent-primary/5 border border-accent-primary/10 flex items-center justify-center cursor-pointer hover:bg-accent-primary/10 hover:scale-105 transition-all duration-300 group">
                 <Play size={28} className="text-accent-primary ml-1 group-hover:scale-110 transition-transform" />
               </div>
             </motion.div>
@@ -64,7 +64,7 @@ export default function ServicesPage() {
                 </p>
 
                 {/* Main headline */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight font-serif">
                   <span className="text-text-secondary">Where </span>
                   <span className="text-accent-primary font-medium">Capital</span>
                   <br />
@@ -87,10 +87,10 @@ export default function ServicesPage() {
 
                 {/* Buttons */}
                 <div className="flex items-center gap-3">
-                  <button className="px-5 py-2.5 md:px-6 md:py-3 bg-accent-primary text-white text-sm font-medium rounded-full hover:bg-accent-primary/90 transition-all duration-200 shadow-lg shadow-accent-primary/20">
+                  <button className="px-5 py-2.5 md:px-6 md:py-3 bg-accent-primary text-white text-sm font-medium rounded-lg hover:bg-accent-light transition-all duration-200 shadow-lg shadow-black/40">
                     Get Started
                   </button>
-                  <button className="group px-5 py-2.5 md:px-6 md:py-3 bg-white/50 backdrop-blur-sm text-text-primary text-sm font-medium rounded-full border border-black/10 hover:bg-white hover:border-black/20 transition-all duration-200 flex items-center gap-2">
+                  <button className="group px-5 py-2.5 md:px-6 md:py-3 bg-white/10 text-white text-sm font-medium rounded-lg border border-white/15 hover:bg-white/15 hover:border-white/25 transition-all duration-200 flex items-center gap-2">
                     Learn More
                     <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                   </button>
@@ -106,11 +106,11 @@ export default function ServicesPage() {
             transition={{ delay: 0.6, duration: 0.5 }}
             className="absolute top-6 right-6 md:top-8 md:right-8"
           >
-            <div className="flex items-center gap-1 p-1 rounded-full bg-black/5 backdrop-blur-sm border border-black/5 shadow-sm">
+            <div className="flex items-center gap-1 p-1 rounded-lg bg-white/10 border border-white/10 shadow-sm">
               <button
                 onClick={() => setActiveService('dscr')}
-                className={`px-4 py-2 text-xs md:text-sm font-medium rounded-full transition-all duration-300 ${activeService === 'dscr'
-                  ? 'bg-white text-accent-primary shadow-sm'
+                className={`px-4 py-2 text-xs md:text-sm font-medium rounded-md transition-all duration-300 ${activeService === 'dscr'
+                  ? 'bg-white/15 text-white shadow-sm'
                   : 'text-text-muted hover:text-text-primary'
                   }`}
               >
@@ -118,8 +118,8 @@ export default function ServicesPage() {
               </button>
               <button
                 onClick={() => setActiveService('capital')}
-                className={`px-4 py-2 text-xs md:text-sm font-medium rounded-full transition-all duration-300 ${activeService === 'capital'
-                  ? 'bg-white text-accent-primary shadow-sm'
+                className={`px-4 py-2 text-xs md:text-sm font-medium rounded-md transition-all duration-300 ${activeService === 'capital'
+                  ? 'bg-white/15 text-white shadow-sm'
                   : 'text-text-muted hover:text-text-primary'
                   }`}
               >
@@ -180,13 +180,13 @@ function DSCRContent() {
         <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-text-muted mb-4">
           Cash-Out Refinance
         </p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-text-primary max-w-2xl leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-text-primary max-w-2xl leading-tight font-serif">
           Pull tax-free equity from your rental properties
         </h2>
       </div>
 
       {/* Features Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/5 rounded-2xl overflow-hidden border border-black/5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-xl overflow-hidden border border-white/10">
         {[
           { title: 'No Income Docs', desc: 'Qualify on property cash flow, not personal income' },
           { title: 'Up to 80% LTV', desc: 'Maximize your equity extraction on rentals' },
@@ -200,7 +200,7 @@ function DSCRContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: i * 0.1 }}
-            className="p-8 md:p-10 bg-white hover:bg-bg-secondary transition-colors duration-300"
+            className="p-8 md:p-10 bg-bg-card hover:bg-bg-tertiary transition-colors duration-300"
           >
             <h3 className="text-lg font-medium text-text-primary mb-2">{feature.title}</h3>
             <p className="text-sm text-text-muted leading-relaxed">{feature.desc}</p>
@@ -236,7 +236,7 @@ function DSCRContent() {
               'Personal income documentation',
             ].map((req) => (
               <div key={req} className="flex items-center gap-3 opacity-60">
-                <div className="w-1.5 h-1.5 rounded-full bg-black/20" />
+                <div className="w-1.5 h-1.5 rounded-full bg-white/15" />
                 <span className="text-text-light line-through">{req}</span>
               </div>
             ))}
@@ -245,12 +245,12 @@ function DSCRContent() {
       </div>
 
       {/* CTA */}
-      <div className="mt-20 pt-12 border-t border-black/5">
+      <div className="mt-20 pt-12 border-t border-white/10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <p className="text-text-muted max-w-md">
             Ready to unlock your equity? Get a personalized quote in under 2 minutes.
           </p>
-          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-full hover:bg-accent-primary/90 transition-all duration-200 self-start shadow-lg shadow-accent-primary/20">
+          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-lg hover:bg-accent-light transition-all duration-200 self-start shadow-lg shadow-black/40">
             Get Cash-Out Quote
           </button>
         </div>
@@ -275,7 +275,7 @@ function WorkingCapitalContent() {
         <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-text-muted mb-4">
           Investor Capital Program
         </p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-text-primary max-w-2xl leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-text-primary max-w-2xl leading-tight font-serif">
           $50K–$500K unsecured capital in under 14 days
         </h2>
       </div>
@@ -326,7 +326,7 @@ function WorkingCapitalContent() {
       </div>
 
       {/* Process Steps */}
-      <div className="rounded-2xl bg-white border border-black/5 p-8 md:p-12 shadow-xl shadow-black/[0.02]">
+      <div className="rounded-xl bg-bg-card border border-white/10 p-8 md:p-12 shadow-xl shadow-black/40">
         <p className="text-xs tracking-[0.2em] uppercase text-text-muted mb-8 font-semibold">The Process</p>
         <div className="grid md:grid-cols-4 gap-8">
           {[
@@ -345,12 +345,12 @@ function WorkingCapitalContent() {
       </div>
 
       {/* CTA */}
-      <div className="mt-20 pt-12 border-t border-black/5">
+      <div className="mt-20 pt-12 border-t border-white/10">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <p className="text-text-muted max-w-md">
             90% of qualified applicants receive $50K-$500K in unsecured capital.
           </p>
-          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-full hover:bg-accent-primary/90 transition-all duration-200 self-start shadow-lg shadow-accent-primary/20">
+          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-lg hover:bg-accent-light transition-all duration-200 self-start shadow-lg shadow-black/40">
             Get Pre-Approved in 2 Minutes
           </button>
         </div>
