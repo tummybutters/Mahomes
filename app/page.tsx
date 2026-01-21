@@ -182,7 +182,7 @@ export default function HomePage() {
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex-1 max-h-[72vh] overflow-hidden bg-[#0f151f]"
+          className="relative flex-none md:flex-1 h-[62.4vh] sm:h-[72vh] md:h-auto max-h-[86.4vh] overflow-hidden bg-[#0f151f]"
           style={{
             clipPath: 'url(#folderClip)',
             boxShadow:
@@ -279,7 +279,7 @@ export default function HomePage() {
                 A hand-holding creative finance solution for real estate investors
               </motion.h2>
 
-              <div ref={statsRef} className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+              <div ref={statsRef} className="mt-8 grid grid-cols-3 gap-6 sm:gap-8">
                 <div>
                   <p className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white font-serif">
                     {counts.years}
@@ -402,24 +402,33 @@ export default function HomePage() {
       <section
         className="py-16 md:py-24 overflow-hidden relative"
         style={{
-          background: 'linear-gradient(180deg, #0a0f15 0%, #050608 100%)',
+          background: 'linear-gradient(180deg, #0b111a 0%, #080c12 55%, #050608 100%)',
         }}
       >
-        <div className="px-6 md:px-12 lg:px-20 mb-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              'radial-gradient(120% 80% at 20% 0%, rgba(231,200,119,0.28) 0%, rgba(231,200,119,0) 55%), radial-gradient(120% 90% at 85% 15%, rgba(96,145,210,0.22) 0%, rgba(96,145,210,0) 55%)',
+          }}
+        />
+        <div className="px-6 md:px-12 lg:px-20 mb-10 relative z-10">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-white/60 font-medium"
+            className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-white/70 font-medium"
           >
             Recently Funded Deals
           </motion.p>
+          <div className="mt-4 h-px w-28 bg-gradient-to-r from-[#e7c877] via-white/30 to-transparent" />
         </div>
 
         {/* Carousel */}
         <div
           ref={carouselRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide px-6 md:px-12 lg:px-20 py-4"
+          className="flex gap-5 overflow-x-auto scrollbar-hide px-6 md:px-12 lg:px-20 py-4 relative z-10"
           style={{ scrollBehavior: 'smooth' }}
         >
           {[
@@ -442,22 +451,34 @@ export default function HomePage() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="min-w-[280px] md:min-w-[320px] rounded-xl bg-white/10 border border-white/20 overflow-hidden flex-shrink-0 group hover:bg-white/15 hover:border-white/30 hover:-translate-y-1 transition-all duration-300"
+              className="min-w-[280px] md:min-w-[320px] rounded-xl p-[1px] bg-gradient-to-br from-[#e7c877]/55 via-white/10 to-[#5a7bcf]/35 overflow-hidden flex-shrink-0 group hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Image placeholder */}
-              <div className="aspect-[4/3] bg-white/5 relative">
-                <span className="absolute top-3 left-3 px-2.5 py-1 bg-white/15 text-white text-[10px] font-medium rounded-md border border-white/10">
-                  Just Funded
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-xl font-semibold text-white mb-1">{deal.amount}</p>
-                <p className="text-sm text-white/60 mb-4">{deal.location}</p>
-                <div className="flex items-center gap-3 text-xs font-medium">
-                  <span className="text-white/70">{deal.downPayment} Down</span>
-                  <span className="text-white px-2.5 py-1 bg-white/20 rounded-full">{deal.cashOnCash} CoC</span>
+              <div className="rounded-[11px] bg-white/10 border border-white/10 overflow-hidden">
+                {/* Image placeholder */}
+                <div className="aspect-[4/3] bg-gradient-to-br from-white/15 via-white/5 to-transparent relative">
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 opacity-80"
+                    style={{
+                      background:
+                        'radial-gradient(140% 90% at 20% 0%, rgba(231,200,119,0.35) 0%, rgba(231,200,119,0) 55%), radial-gradient(120% 120% at 100% 100%, rgba(96,145,210,0.25) 0%, rgba(96,145,210,0) 60%)',
+                    }}
+                  />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#e7c877]/25 text-white text-[10px] font-medium rounded-md border border-[#e7c877]/60 shadow-[0_6px_14px_rgba(0,0,0,0.35)]">
+                    Just Funded
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                {/* Content */}
+                <div className="p-6">
+                  <p className="text-xl font-semibold text-white mb-1">{deal.amount}</p>
+                  <p className="text-sm text-white/60 mb-4">{deal.location}</p>
+                  <div className="flex items-center gap-3 text-xs font-medium">
+                    <span className="text-white/70">{deal.downPayment} Down</span>
+                    <span className="text-white px-2.5 py-1 bg-[#e7c877]/20 border border-[#e7c877]/60 rounded-full">
+                      {deal.cashOnCash} CoC
+                    </span>
+                  </div>
                 </div>
               </div>
             </motion.div>

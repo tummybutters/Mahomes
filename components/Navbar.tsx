@@ -123,7 +123,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-4 left-4 right-4 z-50 md:hidden"
       >
-        <div className="flex items-center justify-between px-5 py-4 rounded-xl bg-[#0b111a]/95 border border-white/12 shadow-[0_12px_28px_rgba(0,0,0,0.5)] relative overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#0b111a]/95 border border-white/12 shadow-[0_12px_28px_rgba(0,0,0,0.5)] relative overflow-hidden">
           <span className="absolute inset-x-3 top-0 h-px bg-accent-warm/80" />
           {/* Mobile Logo */}
           <Link href="/" className="flex items-center gap-3">
@@ -136,12 +136,18 @@ export default function Navbar() {
                 className="w-full h-full object-cover"
               />
             </div>
+            <div className="leading-tight">
+              <p className="text-sm font-semibold text-white">Malohn Capital</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/50">
+                Real Estate Finance
+              </p>
+            </div>
           </Link>
 
           {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -168,6 +174,7 @@ export default function Navbar() {
                 </motion.div>
               )}
             </AnimatePresence>
+            <span className="text-[10px] uppercase tracking-[0.24em] font-semibold">Menu</span>
           </motion.button>
         </div>
 
