@@ -63,7 +63,7 @@ export default function HomePage() {
             loop
             className="w-full h-[50vh] md:h-[70vh] object-cover opacity-80"
           >
-            <source src="/videos/hero-video.mov" type="video/quicktime" />
+            <source src="/videos/hero-video.mp4" type="video/mp4" />
           </video>
 
           {/* Technical Overlays */}
