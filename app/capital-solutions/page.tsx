@@ -1,7 +1,4 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import ActionButton from '@/components/ActionButton'
 import { Coins, Building2, Landmark, Layers, ShieldCheck, Zap, TrendingUp } from 'lucide-react'
 import { FocusCards } from '@/components/ui/FocusCards'
@@ -36,30 +33,16 @@ export default function CapitalSolutionsPage() {
       {/* Hero */}
       <section className="pt-28 md:pt-36 pb-16 px-6 md:px-12 lg:px-20 border-b border-white/5 bg-[#050608]">
         <div className="max-w-7xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4"
-          >
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4 animate-fade-up">
             Capital Solutions
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-4xl"
-          >
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-4xl animate-fade-up delay-100">
             Leverage built for <span className="text-accent-warm italic">scale.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-sm md:text-base text-white/60 max-w-2xl leading-relaxed"
-          >
+          </h1>
+          <p className="mt-6 text-sm md:text-base text-white/60 max-w-2xl leading-relaxed animate-fade-up delay-200">
             We align DSCR financing with investment-focused working capital to unlock scalable liquidity, preserve
             equity efficiency, and build a capital architecture designed for long-term portfolio growth.
-          </motion.p>
+          </p>
         </div>
       </section>
 

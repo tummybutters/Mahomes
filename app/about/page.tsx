@@ -1,7 +1,4 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import ActionButton from '@/components/ActionButton'
 import { FocusCards } from '@/components/ui/FocusCards'
 import { Layers, TrendingUp, Target, ShieldCheck } from 'lucide-react'
@@ -55,31 +52,17 @@ export default function AboutPage() {
         className="pt-28 md:pt-36 pb-16 px-6 md:px-12 lg:px-20 border-b border-white/5 bg-[#050608]"
       >
         <div className="max-w-7xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4"
-          >
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4 animate-fade-up">
             About Malohn Capital Group
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-5xl"
-          >
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-5xl animate-fade-up delay-100">
             Institutional-grade structuring for investors outside the traditional gatekeepers.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-sm md:text-base text-white/60 max-w-3xl leading-relaxed"
-          >
+          </h1>
+          <p className="mt-6 text-sm md:text-base text-white/60 max-w-3xl leading-relaxed animate-fade-up delay-200">
             At Malohn Capital Group, we are redefining lower middle market finance. Our mission is to deliver
             institutional-grade financial strategy to everyday investors, introducing Wall Street-level structuring,
             discipline, and sophistication to markets that have long been underserved.
-          </motion.p>
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ActionButton>Schedule a Meeting</ActionButton>
             <Link

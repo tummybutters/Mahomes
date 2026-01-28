@@ -26,8 +26,8 @@ const config: Config = {
         'text-light': '#6F7B88',      // Cool gray
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Times New Roman', 'serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'Times New Roman', 'serif'],
       },
       borderRadius: {
         none: '0',

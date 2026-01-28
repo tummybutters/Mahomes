@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { MapPin, TrendingUp, Percent, DollarSign, Calendar } from 'lucide-react'
+import Image from 'next/image'
+import type { ReactNode } from 'react'
+import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface MockTransactionMetric {
     label: string
     value: string
-    icon?: React.ReactNode
+    icon?: ReactNode
 }
 
 export interface TransactionCardProps {
@@ -33,10 +33,9 @@ export function TransactionCard({
     className,
 }: TransactionCardProps) {
     return (
-        <motion.div
-            whileHover={{ y: -5 }}
+        <div
             className={cn(
-                "group relative w-full overflow-hidden bg-[#0e141f] border border-white/10 rounded-none cursor-pointer", // Sharp corners
+                "group relative w-full overflow-hidden bg-[#0e141f] border border-white/10 rounded-none cursor-pointer transition-transform duration-300 hover:-translate-y-[5px]", // Sharp corners
                 className
             )}
         >
@@ -52,9 +51,12 @@ export function TransactionCard({
 
                 {/* Actual Image (Mocked with a colored div for now if url provided, or use next/image ideally) */}
                 {imageUrl && (
-                    <div
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                        style={{ backgroundImage: `url(${imageUrl})` }}
+                    <Image
+                        src={imageUrl}
+                        alt={title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                 )}
 
@@ -105,6 +107,6 @@ export function TransactionCard({
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     )
 }

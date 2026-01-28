@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import type { MouseEvent } from 'react'
+import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface TiltCardProps {
@@ -11,18 +11,34 @@ interface TiltCardProps {
 
 export function TiltCard({ children, className }: TiltCardProps) {
     const ref = useRef<HTMLDivElement>(null)
+    const frameRef = useRef<number | null>(null)
+    const reduceMotionRef = useRef(false)
 
-    const x = useMotionValue(0)
-    const y = useMotionValue(0)
+    useEffect(() => {
+        const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+        reduceMotionRef.current = media.matches
+        const handler = () => {
+            reduceMotionRef.current = media.matches
+            if (reduceMotionRef.current && ref.current) {
+                ref.current.style.setProperty('--tilt-x', '0deg')
+                ref.current.style.setProperty('--tilt-y', '0deg')
+            }
+        }
+        media.addEventListener('change', handler)
+        return () => media.removeEventListener('change', handler)
+    }, [])
 
-    const mouseXSpring = useSpring(x)
-    const mouseYSpring = useSpring(y)
+    useEffect(() => {
+        return () => {
+            if (frameRef.current) {
+                cancelAnimationFrame(frameRef.current)
+            }
+        }
+    }, [])
 
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['17.5deg', '-17.5deg'])
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-17.5deg', '17.5deg'])
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
         if (!ref.current) return
+        if (reduceMotionRef.current) return
 
         const rect = ref.current.getBoundingClientRect()
 
@@ -35,37 +51,36 @@ export function TiltCard({ children, className }: TiltCardProps) {
         const xPct = mouseX / width - 0.5
         const yPct = mouseY / height - 0.5
 
-        x.set(xPct)
-        y.set(yPct)
+        if (frameRef.current) {
+            cancelAnimationFrame(frameRef.current)
+        }
+
+        frameRef.current = requestAnimationFrame(() => {
+            if (!ref.current) return
+            const rotateX = (-yPct * 17.5).toFixed(2)
+            const rotateY = (xPct * 17.5).toFixed(2)
+            ref.current.style.setProperty('--tilt-x', `${rotateX}deg`)
+            ref.current.style.setProperty('--tilt-y', `${rotateY}deg`)
+        })
     }
 
     const handleMouseLeave = () => {
-        x.set(0)
-        y.set(0)
+        if (!ref.current) return
+        ref.current.style.setProperty('--tilt-x', '0deg')
+        ref.current.style.setProperty('--tilt-y', '0deg')
     }
 
     return (
-        <motion.div
+        <div
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{
-                rotateY,
-                rotateX,
-                transformStyle: 'preserve-3d',
-            }}
-            className={cn("relative group/tilt", className)}
+            className={cn("relative group/tilt tilt-card", className)}
         >
             <div
-                style={{
-                    transform: 'translateZ(75px)',
-                    transformStyle: 'preserve-3d',
-                }}
-                className={cn(
-                    "absolute inset-0 rounded-none bg-gradient-to-br from-accent-warm/20 to-accent-primary/20 opacity-0 group-hover/tilt:opacity-100 transition-opacity duration-500 blur-xl -z-10"
-                )}
+                className="absolute inset-0 rounded-none bg-gradient-to-br from-accent-warm/20 to-accent-primary/20 opacity-0 group-hover/tilt:opacity-100 transition-opacity duration-500 blur-xl -z-10 tilt-card-glow"
             />
             {children}
-        </motion.div>
+        </div>
     )
 }

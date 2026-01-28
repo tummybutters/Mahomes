@@ -1,7 +1,4 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import ActionButton from '@/components/ActionButton'
 
 const useCases = [
@@ -59,31 +56,16 @@ export default function WorkingCapitalPage() {
         }}
       >
         <div className="max-w-6xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/60 font-medium"
-          >
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/60 font-medium animate-fade-up">
             Working Capital
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="mt-4 text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white font-serif"
-          >
+          </p>
+          <h1 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white font-serif animate-fade-up delay-100">
             Investment-focused liquidity built for disciplined growth.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-5 text-sm md:text-base text-white/70 max-w-3xl leading-relaxed"
-          >
+          </h1>
+          <p className="mt-5 text-sm md:text-base text-white/70 max-w-3xl leading-relaxed animate-fade-up delay-200">
             Working capital solutions provide a strategic liquidity layer that supports acquisitions, reserves, and
             execution timing without compromising the integrity of the capital stack.
-          </motion.p>
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ActionButton>Schedule a Strategy Call</ActionButton>
             <Link

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import ActionButton from '@/components/ActionButton'
 import { ArrowRight, Play, FileCheck, Percent, Home, Key, Calendar, Layers, Zap, Shield, User, Banknote } from 'lucide-react'
 import { FocusCards } from '@/components/ui/FocusCards'
 import { TiltCard } from '@/components/ui/TiltCard'
@@ -26,11 +26,8 @@ export default function ServicesPage() {
       {/* Hero Section - Full Viewport */}
       <section className="h-screen p-4 md:p-6 flex flex-col">
         {/* Main Visual Container */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex-1 rounded-none overflow-hidden shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]"
+        <div
+          className="relative flex-1 rounded-none overflow-hidden shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] animate-fade-scale-in"
           style={{
             background: 'linear-gradient(135deg, #050608 0%, #0a0f15 55%, #0b1320 100%)',
           }}
@@ -49,12 +46,7 @@ export default function ServicesPage() {
 
           {/* Center Video */}
           <div className="absolute inset-0 flex items-center justify-center px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="relative w-[92%] md:w-[74%] aspect-[16/9] rounded-none bg-bg-card border border-white/10 overflow-hidden shadow-2xl shadow-black/40"
-            >
+            <div className="relative w-[92%] md:w-[74%] aspect-[16/9] rounded-none bg-bg-card border border-white/10 overflow-hidden shadow-2xl shadow-black/40 animate-fade-up delay-300">
               <video
                 autoPlay
                 muted
@@ -76,19 +68,14 @@ export default function ServicesPage() {
                 <Play size={12} className="text-white/80" />
                 Service Reel
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Bottom Content Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-12">
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12">
               {/* Left: Label + Headline */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="max-w-xl"
-              >
+              <div className="max-w-xl animate-fade-up delay-400">
                 {/* Small label */}
                 <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-text-muted mb-3 md:mb-4">
                   Services
@@ -102,15 +89,10 @@ export default function ServicesPage() {
                   <span className="text-text-secondary">Stabilize, </span>
                   <span className="text-accent-primary font-medium">Scale</span>
                 </h1>
-              </motion.div>
+              </div>
 
               {/* Right: Description + CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="flex flex-col items-start lg:items-end gap-5"
-              >
+              <div className="flex flex-col items-start lg:items-end gap-5 animate-fade-up delay-500">
                 {/* Description */}
                 <p className="text-sm md:text-base text-text-muted max-w-xs lg:text-right leading-relaxed">
                   DSCR loans and flexible working capital designed for repeat acquisitions, renovations, and long-term holds.
@@ -126,17 +108,12 @@ export default function ServicesPage() {
                     <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                   </button>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
 
           {/* Service Toggle Pills - Top Right inside container */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="absolute top-6 right-6 md:top-8 md:right-8"
-          >
+          <div className="absolute top-6 right-6 md:top-8 md:right-8 animate-fade-up delay-600">
             <div className="flex items-center gap-1 p-1 rounded-none bg-white/10 border border-white/10 shadow-sm">
               <button
                 onClick={() => setActiveService('dscr')}
@@ -157,23 +134,18 @@ export default function ServicesPage() {
                 Working Capital
               </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Floating Stats - Bottom Right Corner */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            className="absolute bottom-6 right-6 md:bottom-10 md:right-10 hidden md:flex items-center gap-8"
-          >
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 hidden md:flex items-center gap-8 animate-fade-up delay-700">
             {stats.map((stat) => (
               <div key={stat.label} className="text-right">
                 <p className="text-lg md:text-xl font-light text-text-primary">{stat.value}</p>
                 <p className="text-[10px] tracking-wider uppercase text-text-muted">{stat.label}</p>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Content Sections Below */}
@@ -196,12 +168,7 @@ export default function ServicesPage() {
 // ==========================================
 function DSCRContent() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      key="dscr"
-    >
+    <div className="animate-fade-up">
       {/* Section Header */}
       <div className="mb-20">
         <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-text-muted mb-4">
@@ -272,12 +239,10 @@ function DSCRContent() {
           <p className="text-text-muted max-w-md">
             Ready to move on your next purchase? Get a DSCR quote in under 2 minutes.
           </p>
-          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-none hover:bg-accent-light transition-all duration-200 self-start shadow-lg shadow-black/40">
-            Get DSCR Quote
-          </button>
+          <ActionButton className="min-w-[200px]">Get DSCR Quote</ActionButton>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -286,12 +251,7 @@ function DSCRContent() {
 // ==========================================
 function WorkingCapitalContent() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      key="capital"
-    >
+    <div className="animate-fade-up">
       {/* Section Header */}
       <div className="mb-20">
         <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-text-muted mb-4">
@@ -387,11 +347,9 @@ function WorkingCapitalContent() {
           <p className="text-text-muted max-w-md">
             Most qualified applicants receive $50K-$500K in unsecured working capital.
           </p>
-          <button className="px-8 py-4 bg-accent-primary text-white font-medium rounded-none hover:bg-accent-light transition-all duration-200 self-start shadow-lg shadow-black/40">
-            Get Pre-Approved in 2 Minutes
-          </button>
+          <ActionButton className="min-w-[260px]">Get Pre-Approved in 2 Minutes</ActionButton>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

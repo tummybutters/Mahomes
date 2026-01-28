@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import type { ReactNode } from 'react'
 
 interface Card {
     title: string
     description: string
-    icon?: React.ReactNode
-    action?: React.ReactNode
+    icon?: ReactNode
+    action?: ReactNode
 }
 
 interface FocusCardsProps {
@@ -16,19 +14,12 @@ interface FocusCardsProps {
 }
 
 export function FocusCards({ cards }: FocusCardsProps) {
-    const [hovered, setHovered] = useState<number | null>(null)
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto">
             {cards.map((card, index) => (
                 <div
                     key={index}
-                    onMouseEnter={() => setHovered(index)}
-                    onMouseLeave={() => setHovered(null)}
-                    className={cn(
-                        'relative items-center justify-center overflow-hidden rounded-none bg-[#101826] border transition-colors duration-300 ease-out',
-                        hovered === index ? 'border-accent-warm' : 'border-white/10'
-                    )}
+                    className="group relative items-center justify-center overflow-hidden rounded-none bg-[#101826] border border-white/10 transition-colors duration-300 ease-out hover:border-accent-warm"
                 >
                     <div className="p-8 h-full flex flex-col">
                         {/* Header */}
@@ -36,10 +27,7 @@ export function FocusCards({ cards }: FocusCardsProps) {
                             {card.icon}
                         </div>
 
-                        <h3 className={cn(
-                            "text-xl font-semibold text-white mb-2 transition-colors",
-                            hovered === index ? "text-accent-warm" : "text-white"
-                        )}>
+                        <h3 className="text-xl font-semibold text-white mb-2 transition-colors group-hover:text-accent-warm">
                             {card.title}
                         </h3>
 
@@ -49,10 +37,7 @@ export function FocusCards({ cards }: FocusCardsProps) {
 
                         {/* Bottom Action Area */}
                         {card.action && (
-                            <div className={cn(
-                                "mt-auto pt-4 border-t border-white/5 transition-opacity duration-300",
-                                hovered === index ? "opacity-100" : "opacity-50"
-                            )}>
+                            <div className="mt-auto pt-4 border-t border-white/5 transition-opacity duration-300 opacity-50 group-hover:opacity-100">
                                 {card.action}
                             </div>
                         )}

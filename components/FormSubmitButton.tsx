@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './FormSubmitButton.module.css'
 
 interface FormSubmitButtonProps {
@@ -17,12 +17,24 @@ export default function FormSubmitButton({
   className = ''
 }: FormSubmitButtonProps) {
   const [isSent, setIsSent] = useState(false)
+  const timeoutRef = useRef<number | null>(null)
 
   const handleClick = () => {
     setIsSent(true)
     onClick?.()
-    setTimeout(() => setIsSent(false), 3000)
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = window.setTimeout(() => setIsSent(false), 3000)
   }
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <button

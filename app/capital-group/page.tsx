@@ -1,6 +1,3 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import ActionButton from '@/components/ActionButton'
 import { FocusCards } from '@/components/ui/FocusCards'
 import { Building2, ShieldCheck, Zap } from 'lucide-react'
@@ -41,30 +38,16 @@ export default function CapitalGroupPage() {
         className="pt-28 md:pt-36 pb-16 px-6 md:px-12 lg:px-20 border-b border-white/5 bg-[#050608]"
       >
         <div className="max-w-7xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4"
-          >
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 font-medium mb-4 animate-fade-up">
             Capital Group
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-4xl"
-          >
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white font-serif leading-[0.9] max-w-4xl animate-fade-up delay-100">
             Advisory leadership with <span className="text-accent-warm italic">precision.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-sm md:text-base text-white/60 max-w-2xl leading-relaxed"
-          >
+          </h1>
+          <p className="mt-6 text-sm md:text-base text-white/60 max-w-2xl leading-relaxed animate-fade-up delay-200">
             Our capital advisory group pairs Wall Street-level structuring with boutique focus. We guide sophisticated
             investors through disciplined leverage design, risk positioning, and long-term portfolio growth.
-          </motion.p>
+          </p>
           <div className="mt-8">
             <ActionButton>Schedule a Strategy Call</ActionButton>
           </div>

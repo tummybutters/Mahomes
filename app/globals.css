@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-
 :root {
   /* Dark theme backgrounds */
   --bg-primary: #0A0B0D;
@@ -42,7 +40,7 @@ body {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 a {
@@ -105,4 +103,147 @@ a {
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.5s ease forwards;
+  will-change: opacity, transform;
+}
+
+.animate-fade-down {
+  opacity: 0;
+  animation: fade-down 0.6s ease forwards;
+  will-change: opacity, transform;
+}
+
+.animate-fade-scale-in {
+  opacity: 0;
+  animation: fade-scale-in 0.3s ease forwards;
+  will-change: opacity, transform;
+}
+
+.animate-fade-scale-out {
+  opacity: 1;
+  animation: fade-scale-out 0.3s ease forwards;
+  will-change: opacity, transform;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-600 {
+  animation-delay: 0.6s;
+}
+
+.delay-700 {
+  animation-delay: 0.7s;
+}
+
+.tx-grid {
+  position: relative;
+}
+
+.tx-item {
+  will-change: transform;
+}
+
+.tx-enter {
+  animation: fade-scale-in 0.3s ease forwards;
+}
+
+.tx-exit {
+  animation: fade-scale-out 0.3s ease forwards;
+}
+
+.tilt-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform 140ms ease;
+}
+
+.tilt-card-glow {
+  transform: translateZ(75px);
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-down,
+  .animate-fade-scale-in,
+  .animate-fade-scale-out,
+  .tx-enter,
+  .tx-exit {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .tilt-card {
+    transition: none;
+    transform: none;
+  }
 }
