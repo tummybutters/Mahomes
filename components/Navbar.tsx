@@ -75,7 +75,7 @@ export default function Navbar() {
           {/* Center Logo - Unboxed */}
           <Link href="/" className="relative mx-0 group">
             <div
-              className={`relative ${isHome ? 'w-24 h-24' : 'w-14 h-14'
+              className={`relative ${isHome ? 'w-48 h-48' : 'w-14 h-14'
                 } opacity-90 group-hover:opacity-100 transition-opacity`}
             >
               <Image
@@ -134,7 +134,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-4 py-3 rounded-none bg-[#0b111a]/95 border border-white/10 shadow-[0_12px_28px_rgba(0,0,0,0.5)] backdrop-blur-md">
           {/* Mobile Logo - Unboxed Link */}
           <Link href="/" className="flex items-center gap-3">
-            <div className={`relative ${isHome ? 'w-10 h-10' : 'w-8 h-8'}`}>
+            <div className={`relative ${isHome ? 'w-20 h-20' : 'w-8 h-8'}`}>
               <Image
                 src="/images/logo.png"
                 alt="Malohn Capital Group"
