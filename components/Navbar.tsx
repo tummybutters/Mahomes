@@ -82,7 +82,7 @@ export default function Navbar() {
                 src="/images/logo.png"
                 alt="Malohn Capital Group"
                 fill
-                className={`object-contain ${isHome ? 'scale-[1.5]' : ''}`}
+                className={`object-contain ${isHome ? 'scale-[1.3]' : ''}`}
               />
             </div>
           </Link>
