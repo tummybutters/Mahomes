@@ -74,8 +74,12 @@ export default function Navbar() {
 
           {/* Center Logo - Unboxed */}
           <Link href="/" className="relative mx-0 group">
+            {/* Spacer for layout dimensions */}
+            <div className={`${isHome ? 'w-24 h-10' : 'w-14 h-14'}`} />
+
+            {/* Actual Logo - Positioned Absolute to overflow */}
             <div
-              className={`relative ${isHome ? 'w-48 h-48' : 'w-14 h-14'
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${isHome ? 'w-64 h-64' : 'w-14 h-14'
                 } opacity-90 group-hover:opacity-100 transition-opacity`}
             >
               <Image
