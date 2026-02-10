@@ -368,6 +368,9 @@ export default function SecretLandingPage() {
             <br />
             FUND YOUR FUTURE
           </p>
+          <p className="text-center text-slate-400 max-w-2xl mx-auto -mt-4 mb-8 text-sm md:text-base leading-relaxed">
+            Our Real Estate working capital program helps you unlock fast, flexible capital. No collateral. No property liens. No missed deals. No experience needed.
+          </p>
 
           <div className="flex flex-col items-center mb-8">
             {isUnlocked ? (
