@@ -114,7 +114,7 @@ export default function CapitalGroupPage() {
                     <img
                       src="/images/jeff-barak.png"
                       alt="Jeff Barak"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                   <div className="text-center md:text-left">
@@ -133,7 +133,7 @@ export default function CapitalGroupPage() {
                     <img
                       src="/images/lucas-rabbani.png"
                       alt="Lucas Rabbani"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                   <div className="text-center md:text-left">
