@@ -6,6 +6,12 @@ import { Play, ChevronLeft, ChevronRight, Check, Lock, Sparkles } from 'lucide-r
 import { PopupButton } from '@typeform/embed-react'
 import styles from './SecretLanding.module.css'
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+  }
+}
+
 const TESTIMONIALS = [
   // First-Time Investors / Speed & Guidance
   {
@@ -85,10 +91,20 @@ export default function SecretLandingPage() {
   const [scheduleClickLocked, setScheduleClickLocked] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const hasTrackedLeadRef = useRef(false)
   const [isPaused, setIsPaused] = useState(false)
   const [videoProgress, setVideoProgress] = useState(0)
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+
+  const trackMetaEvent = (eventName: string, params?: Record<string, unknown>) => {
+    if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
+    if (params) {
+      window.fbq('trackCustom', eventName, params)
+      return
+    }
+    window.fbq('trackCustom', eventName)
+  }
 
   // Track video progress
   useEffect(() => {
@@ -141,6 +157,21 @@ export default function SecretLandingPage() {
     if (isUnlocked) return
     setScheduleClickLocked(true)
     videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
+  const handleTypeformOpen = () => {
+    trackMetaEvent('ScheduleMeetingClick', { page: '/workingcapital' })
+  }
+
+  const handleTypeformSubmit = () => {
+    if (hasTrackedLeadRef.current) return
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
+        content_name: 'Working Capital Strategy Call',
+        page_path: '/workingcapital',
+      })
+    }
+    hasTrackedLeadRef.current = true
   }
 
   // Auto-scroll carousel
@@ -374,12 +405,16 @@ export default function SecretLandingPage() {
 
           <div className="flex flex-col items-center mb-8">
             {isUnlocked ? (
-              <PopupButton
-                id="lGiCs1cM"
-                className="btn-primary inline-flex items-center justify-center rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
-              >
-                Schedule a Meeting
-              </PopupButton>
+              <div onClick={handleTypeformOpen}>
+                <PopupButton
+                  id="lGiCs1cM"
+                  onSubmit={handleTypeformSubmit}
+                  transitiveSearchParams
+                  className="btn-primary inline-flex items-center justify-center rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
+                >
+                  Schedule a Meeting
+                </PopupButton>
+              </div>
             ) : (
               <button
                 type="button"
@@ -513,12 +548,16 @@ export default function SecretLandingPage() {
           </p>
 
           {isUnlocked ? (
-            <PopupButton
-              id="lGiCs1cM"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#08090c] font-medium rounded-lg hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 font-[family-name:var(--font-outfit)]"
-            >
-              Book Your Free Strategy Call
-            </PopupButton>
+            <div onClick={handleTypeformOpen}>
+              <PopupButton
+                id="lGiCs1cM"
+                onSubmit={handleTypeformSubmit}
+                transitiveSearchParams
+                className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#08090c] font-medium rounded-lg hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 font-[family-name:var(--font-outfit)]"
+              >
+                Book Your Free Strategy Call
+              </PopupButton>
+            </div>
           ) : (
             <button
               disabled
