@@ -91,7 +91,7 @@ export default function SecretLandingPage() {
   const [scheduleClickLocked, setScheduleClickLocked] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const hasTrackedLeadRef = useRef(false)
+  const hasHandledTypeformSubmitRef = useRef(false)
   const [isPaused, setIsPaused] = useState(false)
   const [videoProgress, setVideoProgress] = useState(0)
   const [isUnlocked, setIsUnlocked] = useState(false)
@@ -163,15 +163,27 @@ export default function SecretLandingPage() {
     trackMetaEvent('ScheduleMeetingClick', { page: '/workingcapital' })
   }
 
-  const handleTypeformSubmit = () => {
-    if (hasTrackedLeadRef.current) return
-    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', {
-        content_name: 'Working Capital Strategy Call',
-        page_path: '/workingcapital',
-      })
+  const handleTypeformSubmit = (payload?: { responseId?: string }) => {
+    if (typeof window === 'undefined' || hasHandledTypeformSubmitRef.current) return
+
+    hasHandledTypeformSubmitRef.current = true
+
+    const currentUrl = new URL(window.location.href)
+    const thankYouUrl = new URL('/workingcapital/thank-you', window.location.origin)
+
+    currentUrl.searchParams.forEach((value, key) => {
+      thankYouUrl.searchParams.set(key, value)
+    })
+
+    thankYouUrl.searchParams.set('src', 'typeform')
+    thankYouUrl.searchParams.set('submission_token', `${Date.now()}`)
+
+    if (payload?.responseId) {
+      thankYouUrl.searchParams.set('tf_response_id', payload.responseId)
     }
-    hasTrackedLeadRef.current = true
+
+    window.sessionStorage.setItem('wc_typeform_submitted', '1')
+    window.location.assign(thankYouUrl.toString())
   }
 
   // Auto-scroll carousel
