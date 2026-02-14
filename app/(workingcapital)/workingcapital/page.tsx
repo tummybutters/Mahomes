@@ -296,9 +296,9 @@ export default function SecretLandingPage() {
       </div>
 
       {/* Header */}
-      <header className="relative py-1 md:py-1.5 border-b border-white/[0.06] backdrop-blur-sm bg-[#08090c]/80 sticky top-0 z-50">
+      <header className="relative py-0.5 md:py-1 border-b border-white/[0.06] backdrop-blur-sm bg-[#08090c]/80 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 flex justify-center">
-          <div className="relative w-24 h-8 md:w-28 md:h-9 opacity-90 hover:opacity-100 transition-opacity">
+          <div className="relative w-20 h-7 md:w-24 md:h-8 opacity-90 hover:opacity-100 transition-opacity">
             <Image
               src="/images/logo.png"
               alt="Malohn Capital Group"
@@ -311,13 +311,13 @@ export default function SecretLandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-1 md:pt-2 pb-4 md:pb-6 overflow-hidden">
+      <section className="relative pt-0 md:pt-1 pb-3 md:pb-5 overflow-hidden">
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/[0.02] via-transparent to-transparent" />
 
         <div className="relative max-w-4xl mx-auto px-4">
           {/* Requirements Badge */}
-          <div className="flex justify-center mb-2 md:mb-3">
+          <div className="flex justify-center mb-1.5 md:mb-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.03] border border-amber-500/20 backdrop-blur-sm">
               <Sparkles className="w-2.5 h-2.5 text-amber-400/80 shrink-0" />
               <p className="text-[10px] sm:text-xs text-slate-300">
@@ -327,7 +327,7 @@ export default function SecretLandingPage() {
           </div>
 
           {/* Main Headline */}
-          <div className="text-center mb-3 md:mb-4">
+          <div className="text-center mb-2 md:mb-3">
             <h1 className="font-[family-name:var(--font-outfit)] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-[1.05] mb-1.5 md:mb-2">
               <span className="text-gradient-gold">SECURE $50,000–$500,000</span>
               <br />
@@ -343,9 +343,9 @@ export default function SecretLandingPage() {
 
 
           {/* Video Section */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-[680px] mx-auto">
             {/* Video label */}
-            <div className="bg-white/[0.03] border border-white/[0.08] text-slate-300 text-center py-1.5 px-3 text-[10px] sm:text-[11px] font-medium tracking-wide flex items-center justify-center rounded-lg mb-2">
+            <div className="bg-white/[0.03] border border-white/[0.08] text-slate-300 text-center py-1 px-3 text-[10px] sm:text-[11px] font-medium tracking-wide flex items-center justify-center rounded-lg mb-1.5">
               WATCH THE VIDEO BELOW TO SEE HOW THE PROGRAM WORKS
             </div>
 
@@ -405,11 +405,12 @@ export default function SecretLandingPage() {
 
           </div>
 
-          <div className="flex flex-col items-center mt-4 mb-5">
+          <div className="flex flex-col items-center mt-2.5 mb-4">
             {isUnlocked ? (
               <div onClick={handleTypeformOpen}>
                 <PopupButton
                   id="lGiCs1cM"
+                  size={55}
                   onSubmit={handleTypeformSubmit}
                   transitiveSearchParams
                   className="btn-primary inline-flex items-center justify-center rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
@@ -421,9 +422,9 @@ export default function SecretLandingPage() {
               <button
                 type="button"
                 onClick={handleScheduleMeetingClick}
-                className="inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3 text-sm tracking-[0.04em] border border-white/[0.12] bg-white/[0.03] text-slate-200 hover:bg-white/[0.06] transition-colors font-[family-name:var(--font-outfit)]"
+                className="btn-primary inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
               >
-                <Lock className="w-4 h-4 text-amber-400" />
+                <Lock className="w-4 h-4 text-[#08090c]" />
                 SCHEDULE A CALL
               </button>
             )}
@@ -560,6 +561,7 @@ export default function SecretLandingPage() {
             <div onClick={handleTypeformOpen}>
               <PopupButton
                 id="lGiCs1cM"
+                size={55}
                 onSubmit={handleTypeformSubmit}
                 transitiveSearchParams
                 className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#08090c] font-medium rounded-lg hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 font-[family-name:var(--font-outfit)]"
