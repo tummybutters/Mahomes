@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, memo } from 'react'
 import Image from 'next/image'
 import { Play, ChevronLeft, ChevronRight, Check, Lock, Sparkles } from 'lucide-react'
-import { PopupButton } from '@typeform/embed-react'
+import { Widget } from '@typeform/embed-react'
 import styles from './SecretLanding.module.css'
 
 declare global {
@@ -86,16 +86,67 @@ const TESTIMONIALS = [
 
 const VIDEO_UNLOCK_THRESHOLD = 0.35
 
+type TypeformSubmitPayload = {
+  responseId?: string
+}
+
+const SchedulerEmbed = memo(function SchedulerEmbed({
+  typeformId,
+  isOpen,
+  schedulerRef,
+  onSubmit,
+}: {
+  typeformId: string
+  isOpen: boolean
+  schedulerRef: React.RefObject<HTMLDivElement>
+  onSubmit: (payload?: TypeformSubmitPayload) => void
+}) {
+  return (
+    <div
+      ref={schedulerRef}
+      aria-hidden={!isOpen}
+      className={`mx-auto w-full max-w-[520px] transition-opacity duration-200 ${
+        isOpen
+          ? 'relative opacity-100 mt-4 pointer-events-auto visible'
+          : 'relative opacity-0 mt-4 pointer-events-none invisible'
+      }`}
+    >
+      <div className="rounded-xl border border-white/[0.12] bg-[#0b0d11] shadow-2xl shadow-black/50 overflow-hidden">
+        <div className="px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
+          <p className="text-xs tracking-[0.08em] uppercase text-slate-300 font-[family-name:var(--font-outfit)]">
+            Schedule Your Call
+          </p>
+        </div>
+        <Widget
+          id={typeformId}
+          style={{ width: '100%', height: '620px' }}
+          className="w-full"
+          transitiveSearchParams
+          hideFooter
+          onSubmit={onSubmit}
+          inlineOnMobile
+          lazy={false}
+        />
+      </div>
+    </div>
+  )
+})
+
 export default function SecretLandingPage() {
+  const TYPEFORM_ID = 'lGiCs1cM'
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [scheduleClickLocked, setScheduleClickLocked] = useState(false)
+  const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
+  const [shouldRenderScheduler, setShouldRenderScheduler] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const schedulerRef = useRef<HTMLDivElement>(null)
   const hasHandledTypeformSubmitRef = useRef(false)
   const [isPaused, setIsPaused] = useState(false)
   const [videoProgress, setVideoProgress] = useState(0)
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [videoPlayError, setVideoPlayError] = useState(false)
 
   const trackMetaEvent = (eventName: string, params?: Record<string, unknown>) => {
     if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
@@ -147,9 +198,49 @@ export default function SecretLandingPage() {
     }
   }, [isUnlocked, scheduleClickLocked])
 
-  const handlePlayVideo = () => {
-    if (videoRef.current) {
-      videoRef.current.play()
+  useEffect(() => {
+    if (isUnlocked) {
+      setShouldRenderScheduler(true)
+    }
+  }, [isUnlocked])
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+
+    const preconnectTargets = ['https://form.typeform.com', 'https://embed.typeform.com']
+    const appendedLinks: HTMLLinkElement[] = []
+
+    preconnectTargets.forEach((href) => {
+      if (document.querySelector(`link[rel="preconnect"][href="${href}"]`)) return
+      const link = document.createElement('link')
+      link.rel = 'preconnect'
+      link.href = href
+      link.crossOrigin = 'anonymous'
+      document.head.appendChild(link)
+      appendedLinks.push(link)
+    })
+
+    return () => {
+      appendedLinks.forEach((link) => link.remove())
+    }
+  }, [])
+
+  const handlePlayVideo = async () => {
+    const video = videoRef.current
+    if (!video) return
+
+    setVideoPlayError(false)
+
+    try {
+      await video.play()
+    } catch {
+      try {
+        // Some browsers accept play() on a follow-up gesture frame.
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+        await video.play()
+      } catch {
+        setVideoPlayError(true)
+      }
     }
   }
 
@@ -160,10 +251,17 @@ export default function SecretLandingPage() {
   }
 
   const handleTypeformOpen = () => {
+    if (!isUnlocked) return
+
     trackMetaEvent('ScheduleMeetingClick', { page: '/workingcapital' })
+    setShouldRenderScheduler(true)
+    setIsSchedulerOpen(true)
+    requestAnimationFrame(() => {
+      schedulerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
   }
 
-  const handleTypeformSubmit = (payload?: { responseId?: string }) => {
+  const handleTypeformSubmit = useCallback((payload?: TypeformSubmitPayload) => {
     if (typeof window === 'undefined' || hasHandledTypeformSubmitRef.current) return
 
     hasHandledTypeformSubmitRef.current = true
@@ -184,7 +282,7 @@ export default function SecretLandingPage() {
 
     window.sessionStorage.setItem('wc_typeform_submitted', '1')
     window.location.assign(thankYouUrl.toString())
-  }
+  }, [])
 
   // Auto-scroll carousel
   useEffect(() => {
@@ -355,23 +453,29 @@ export default function SecretLandingPage() {
                 ref={videoRef}
                 className="w-full h-full object-cover"
                 playsInline
-                preload="metadata"
+                preload="auto"
+                onClick={handlePlayVideo}
               >
                 <source src="/videos/hero-video.mp4" type="video/mp4" />
               </video>
 
               {/* Play overlay */}
               {!isVideoPlaying && (
-                <div className="absolute inset-0 bg-[#08090c]/90 flex flex-col items-center justify-center backdrop-blur-sm">
-                  <button
-                    onClick={handlePlayVideo}
-                    className="group relative w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-105 transition-all duration-300"
-                  >
+                <button
+                  type="button"
+                  onClick={handlePlayVideo}
+                  onPointerDown={handlePlayVideo}
+                  className="absolute inset-0 bg-[#08090c]/90 flex flex-col items-center justify-center backdrop-blur-sm cursor-pointer"
+                  aria-label="Play video presentation"
+                >
+                  <span className="group relative w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-105 transition-all duration-300">
                     <Play className="w-8 h-8 text-[#08090c] ml-1" fill="currentColor" />
-                    <div className="absolute inset-0 rounded-full border border-amber-400/30 animate-ping opacity-20" />
-                  </button>
-                  <p className="mt-6 text-slate-400 font-[family-name:var(--font-outfit)] text-sm tracking-wide">Click to watch presentation</p>
-                </div>
+                    <span className="absolute inset-0 rounded-full border border-amber-400/30 animate-ping opacity-20" />
+                  </span>
+                  <p className="mt-6 text-slate-400 font-[family-name:var(--font-outfit)] text-sm tracking-wide">
+                    {videoPlayError ? 'Tap again to start video' : 'Click to watch presentation'}
+                  </p>
+                </button>
               )}
 
               {/* Progress bar */}
@@ -407,25 +511,31 @@ export default function SecretLandingPage() {
 
           <div className="flex flex-col items-center mt-2.5 mb-4">
             {isUnlocked ? (
-              <div onClick={handleTypeformOpen}>
-                <PopupButton
-                  id="lGiCs1cM"
-                  size={55}
-                  onSubmit={handleTypeformSubmit}
-                  transitiveSearchParams
-                  className="btn-primary inline-flex items-center justify-center rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
-                >
+              <button
+                type="button"
+                onClick={handleTypeformOpen}
+                className="btn-primary inline-flex flex-col items-center justify-center rounded-lg px-8 py-3 font-[family-name:var(--font-outfit)]"
+              >
+                <span className="text-[10px] sm:text-[11px] tracking-[0.12em] uppercase leading-none">
+                  FUND YOUR FUTURE
+                </span>
+                <span className="mt-1 text-sm tracking-[0.04em] leading-none">
                   SCHEDULE A CALL
-                </PopupButton>
-              </div>
+                </span>
+              </button>
             ) : (
               <button
                 type="button"
                 onClick={handleScheduleMeetingClick}
-                className="btn-primary inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3 text-sm tracking-[0.04em] font-[family-name:var(--font-outfit)]"
+                className="btn-primary inline-flex flex-col items-center justify-center rounded-lg px-8 py-3 font-[family-name:var(--font-outfit)]"
               >
-                <Lock className="w-4 h-4 text-[#08090c]" />
-                SCHEDULE A CALL
+                <span className="text-[10px] sm:text-[11px] tracking-[0.12em] uppercase leading-none">
+                  FUND YOUR FUTURE
+                </span>
+                <span className="mt-1 inline-flex items-center gap-2 text-sm tracking-[0.04em] leading-none">
+                  <Lock className="w-4 h-4 text-[#08090c]" />
+                  SCHEDULE A CALL
+                </span>
               </button>
             )}
             {!isUnlocked && scheduleClickLocked && (
@@ -435,12 +545,18 @@ export default function SecretLandingPage() {
             )}
           </div>
 
-          <p className="text-center text-slate-200 max-w-2xl mx-auto text-base md:text-xl leading-tight tracking-tight mb-2 font-[family-name:var(--font-outfit)]">
-            (FUND YOUR FUTURE)
-          </p>
           <p className="text-center text-slate-400 max-w-2xl mx-auto mb-6 text-sm md:text-base leading-relaxed">
             Our real estate working capital program helps you secure fast, flexible funding in 7-14 days. No collateral required and no property liens.
           </p>
+
+          {shouldRenderScheduler && (
+            <SchedulerEmbed
+              typeformId={TYPEFORM_ID}
+              isOpen={isSchedulerOpen}
+              schedulerRef={schedulerRef}
+              onSubmit={handleTypeformSubmit}
+            />
+          )}
         </div>
       </section>
 
@@ -558,17 +674,13 @@ export default function SecretLandingPage() {
           </p>
 
           {isUnlocked ? (
-            <div onClick={handleTypeformOpen}>
-              <PopupButton
-                id="lGiCs1cM"
-                size={55}
-                onSubmit={handleTypeformSubmit}
-                transitiveSearchParams
-                className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#08090c] font-medium rounded-lg hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 font-[family-name:var(--font-outfit)]"
-              >
-                Book Your Free Strategy Call
-              </PopupButton>
-            </div>
+            <button
+              type="button"
+              onClick={handleTypeformOpen}
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#08090c] font-medium rounded-lg hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 font-[family-name:var(--font-outfit)]"
+            >
+              Book Your Free Strategy Call
+            </button>
           ) : (
             <button
               disabled

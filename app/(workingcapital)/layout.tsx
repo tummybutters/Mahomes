@@ -43,6 +43,29 @@ export default function SecretLandingLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${cormorant.variable} ${outfit.variable} bg-deep text-slate-50 min-h-screen antialiased`}>
+        <Script id="disable-stale-service-workers" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function () {
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                  if (!registrations.length) return;
+                  Promise.all(registrations.map(function (registration) {
+                    return registration.unregister();
+                  })).then(function () {
+                    try {
+                      if (!sessionStorage.getItem('wc_sw_reset_done')) {
+                        sessionStorage.setItem('wc_sw_reset_done', '1');
+                        window.location.reload();
+                      }
+                    } catch (_err) {
+                      window.location.reload();
+                    }
+                  });
+                });
+              });
+            }
+          `}
+        </Script>
         <Script id="meta-pixel-workingcapital" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
