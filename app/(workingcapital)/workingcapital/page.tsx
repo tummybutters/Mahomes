@@ -137,7 +137,6 @@ export default function SecretLandingPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [scheduleClickLocked, setScheduleClickLocked] = useState(false)
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
-  const [shouldRenderScheduler, setShouldRenderScheduler] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const schedulerRef = useRef<HTMLDivElement>(null)
@@ -199,12 +198,6 @@ export default function SecretLandingPage() {
   }, [isUnlocked, scheduleClickLocked])
 
   useEffect(() => {
-    if (isUnlocked) {
-      setShouldRenderScheduler(true)
-    }
-  }, [isUnlocked])
-
-  useEffect(() => {
     if (typeof document === 'undefined') return
 
     const preconnectTargets = ['https://form.typeform.com', 'https://embed.typeform.com']
@@ -254,7 +247,6 @@ export default function SecretLandingPage() {
     if (!isUnlocked) return
 
     trackMetaEvent('ScheduleMeetingClick', { page: '/workingcapital' })
-    setShouldRenderScheduler(true)
     setIsSchedulerOpen(true)
     requestAnimationFrame(() => {
       schedulerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -413,7 +405,7 @@ export default function SecretLandingPage() {
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/[0.02] via-transparent to-transparent" />
 
-        <div className="relative max-w-4xl mx-auto px-4">
+        <div className="relative max-w-5xl mx-auto px-4">
           {/* Requirements Badge */}
           <div className="flex justify-center mb-1.5 md:mb-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.03] border border-amber-500/20 backdrop-blur-sm">
@@ -426,12 +418,12 @@ export default function SecretLandingPage() {
 
           {/* Main Headline */}
           <div className="text-center mb-2 md:mb-3">
-            <h1 className="font-[family-name:var(--font-outfit)] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight leading-[1.05] mb-1.5 md:mb-2">
+            <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.05] mb-1.5 md:mb-2">
               <span className="text-gradient-gold">SECURE $50,000–$500,000</span>
               <br />
               <span className="text-slate-100">IN 0% WORKING CAPITAL</span>
             </h1>
-            <h2 className="font-[family-name:var(--font-outfit)] text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 font-light tracking-tight leading-snug">
+            <h2 className="max-w-4xl mx-auto font-[family-name:var(--font-outfit)] text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light tracking-tight leading-snug">
               START OR SCALE YOUR REAL ESTATE BUSINESS
               <br />
               <span className="border-b-2 border-amber-500/40 pb-0.5">IN 7 - 14 DAYS</span>
@@ -509,7 +501,7 @@ export default function SecretLandingPage() {
 
           </div>
 
-          <div className="flex flex-col items-center mt-2.5 mb-4">
+          <div className="flex flex-col items-center mt-1.5 mb-3">
             {isUnlocked ? (
               <button
                 type="button"
@@ -545,18 +537,16 @@ export default function SecretLandingPage() {
             )}
           </div>
 
-          <p className="text-center text-slate-400 max-w-2xl mx-auto mb-6 text-sm md:text-base leading-relaxed">
+          <p className="text-center text-slate-400 max-w-2xl mx-auto mb-4 text-sm md:text-base leading-relaxed">
             Our real estate working capital program helps you secure fast, flexible funding in 7-14 days. No collateral required and no property liens.
           </p>
 
-          {shouldRenderScheduler && (
-            <SchedulerEmbed
-              typeformId={TYPEFORM_ID}
-              isOpen={isSchedulerOpen}
-              schedulerRef={schedulerRef}
-              onSubmit={handleTypeformSubmit}
-            />
-          )}
+          <SchedulerEmbed
+            typeformId={TYPEFORM_ID}
+            isOpen={isSchedulerOpen}
+            schedulerRef={schedulerRef}
+            onSubmit={handleTypeformSubmit}
+          />
         </div>
       </section>
 
