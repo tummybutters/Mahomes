@@ -108,7 +108,7 @@ const SchedulerEmbed = memo(function SchedulerEmbed({
       className={`mx-auto w-full max-w-[520px] transition-opacity duration-200 ${
         isOpen
           ? 'relative opacity-100 mt-4 pointer-events-auto visible'
-          : 'relative opacity-0 mt-4 pointer-events-none invisible'
+          : 'fixed -left-[9999px] top-0 opacity-0 pointer-events-none invisible'
       }`}
     >
       <div className="rounded-xl border border-white/[0.12] bg-[#0b0d11] shadow-2xl shadow-black/50 overflow-hidden">
