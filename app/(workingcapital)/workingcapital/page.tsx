@@ -433,7 +433,7 @@ export default function SecretLandingPage() {
 
 
           {/* Video Section */}
-          <div className="max-w-[680px] mx-auto mt-[90px] md:mt-0">
+          <div className="max-w-[680px] mx-auto mt-[75px] md:mt-0">
             {/* Video label */}
             <div className="bg-white/[0.03] border border-white/[0.08] text-slate-300 text-center py-1 px-3 text-[10px] sm:text-[11px] font-medium tracking-wide flex items-center justify-center rounded-lg mb-1.5">
               WATCH THE VIDEO BELOW TO SEE HOW THE PROGRAM WORKS
@@ -501,7 +501,7 @@ export default function SecretLandingPage() {
 
           </div>
 
-          <div className="flex flex-col items-center mt-[90px] md:mt-1.5 mb-3">
+          <div className="flex flex-col items-center mt-[75px] md:mt-1.5 mb-3">
             {isUnlocked ? (
               <button
                 type="button"
