@@ -85,6 +85,9 @@ const TESTIMONIALS = [
 ]
 
 const VIDEO_UNLOCK_THRESHOLD = 0.35
+const VSL_DRIVE_FILE_ID = '1G4vYk4u5FIeMbrsEiS00pFFXKv94QTtC'
+const VSL_PREVIEW_URL = `https://drive.google.com/file/d/${VSL_DRIVE_FILE_ID}/preview`
+const WATCH_TIMER_SECONDS = 40
 
 const SchedulerEmbed = memo(function SchedulerEmbed({
   typeformId,
@@ -131,13 +134,12 @@ export default function SecretLandingPage() {
   const [scheduleClickLocked, setScheduleClickLocked] = useState(false)
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoContainerRef = useRef<HTMLDivElement>(null)
   const schedulerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [videoProgress, setVideoProgress] = useState(0)
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-  const [videoPlayError, setVideoPlayError] = useState(false)
 
   const trackMetaEvent = (eventName: string, params?: Record<string, unknown>) => {
     if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
@@ -148,40 +150,25 @@ export default function SecretLandingPage() {
     window.fbq('trackCustom', eventName)
   }
 
-  // Track video progress
+  // Simulate watched progress for the embedded VSL.
+  // Drive preview iframe does not provide playback progress callbacks.
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
+    if (!isVideoPlaying) return
 
-    const handleTimeUpdate = () => {
-      if (video.duration > 0) {
-        const progress = video.currentTime / video.duration
-        setVideoProgress(progress)
-        if (progress >= VIDEO_UNLOCK_THRESHOLD && !isUnlocked) {
-          setIsUnlocked(true)
-        }
+    const startedAt = Date.now()
+    const interval = window.setInterval(() => {
+      const elapsed = (Date.now() - startedAt) / 1000
+      const progress = Math.min(elapsed / WATCH_TIMER_SECONDS, 1)
+      setVideoProgress(progress)
+      if (progress >= VIDEO_UNLOCK_THRESHOLD) {
+        setIsUnlocked(true)
       }
-    }
-
-    const handlePlay = () => setIsVideoPlaying(true)
-    const handlePause = () => setIsVideoPlaying(false)
-    const handleEnded = () => {
-      setIsVideoPlaying(false)
-      setIsUnlocked(true)
-    }
-
-    video.addEventListener('timeupdate', handleTimeUpdate)
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
-    video.addEventListener('ended', handleEnded)
+    }, 250)
 
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate)
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-      video.removeEventListener('ended', handleEnded)
+      window.clearInterval(interval)
     }
-  }, [isUnlocked])
+  }, [isVideoPlaying])
 
   useEffect(() => {
     if (isUnlocked && scheduleClickLocked) {
@@ -210,29 +197,14 @@ export default function SecretLandingPage() {
     }
   }, [])
 
-  const handlePlayVideo = async () => {
-    const video = videoRef.current
-    if (!video) return
-
-    setVideoPlayError(false)
-
-    try {
-      await video.play()
-    } catch {
-      try {
-        // Some browsers accept play() on a follow-up gesture frame.
-        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
-        await video.play()
-      } catch {
-        setVideoPlayError(true)
-      }
-    }
+  const handlePlayVideo = () => {
+    setIsVideoPlaying(true)
   }
 
   const handleScheduleMeetingClick = () => {
     if (isUnlocked) return
     setScheduleClickLocked(true)
-    videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    videoContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   const handleTypeformOpen = () => {
@@ -402,7 +374,7 @@ export default function SecretLandingPage() {
 
 
           {/* Video Section */}
-          <div className="max-w-[680px] mx-auto mt-[75px] md:mt-0">
+          <div ref={videoContainerRef} className="max-w-[680px] mx-auto mt-[75px] md:mt-0">
             {/* Video label */}
             <div className="bg-white/[0.03] border border-white/[0.08] text-slate-300 text-center py-1 px-3 text-[10px] sm:text-[11px] font-medium tracking-wide flex items-center justify-center rounded-lg mb-1.5">
               WATCH THE VIDEO BELOW TO SEE HOW THE PROGRAM WORKS
@@ -410,15 +382,13 @@ export default function SecretLandingPage() {
 
             <div className="relative aspect-video bg-gradient-to-br from-[#0c0e12] to-[#08090c] rounded-lg border border-white/[0.08] overflow-hidden shadow-2xl shadow-black/50">
               {/* Video element */}
-              <video
-                ref={videoRef}
-                className="w-full h-full object-cover"
-                playsInline
-                preload="auto"
-                onClick={handlePlayVideo}
-              >
-                <source src="/videos/hero-video.mp4" type="video/mp4" />
-              </video>
+              <iframe
+                title="Working Capital VSL"
+                src={VSL_PREVIEW_URL}
+                className="w-full h-full"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
 
               {/* Play overlay */}
               {!isVideoPlaying && (
@@ -434,7 +404,7 @@ export default function SecretLandingPage() {
                     <span className="absolute inset-0 rounded-full border border-amber-400/30 animate-ping opacity-20" />
                   </span>
                   <p className="mt-6 text-slate-400 font-[family-name:var(--font-outfit)] text-sm tracking-wide">
-                    {videoPlayError ? 'Tap again to start video' : 'Click to watch presentation'}
+                    Click to watch presentation
                   </p>
                 </button>
               )}
