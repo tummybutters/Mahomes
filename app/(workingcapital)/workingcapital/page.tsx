@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, memo } from 'react'
 import Image from 'next/image'
-import { Play, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { Widget } from '@typeform/embed-react'
 import styles from './SecretLanding.module.css'
 
@@ -131,10 +131,8 @@ export default function SecretLandingPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
-  const videoContainerRef = useRef<HTMLDivElement>(null)
   const schedulerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
 
   const trackMetaEvent = (eventName: string, params?: Record<string, unknown>) => {
     if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
@@ -165,10 +163,6 @@ export default function SecretLandingPage() {
       appendedLinks.forEach((link) => link.remove())
     }
   }, [])
-
-  const handlePlayVideo = () => {
-    setIsVideoPlaying(true)
-  }
 
   const handleTypeformOpen = () => {
     trackMetaEvent('ScheduleMeetingClick', { page: '/workingcapital' })
@@ -332,7 +326,7 @@ export default function SecretLandingPage() {
 
 
           {/* Video Section */}
-          <div ref={videoContainerRef} className="max-w-[680px] mx-auto mt-[75px] md:mt-0">
+          <div className="max-w-[680px] mx-auto mt-[75px] md:mt-0">
             {/* Video label */}
             <div className="bg-white/[0.03] border border-white/[0.08] text-slate-300 text-center py-1 px-3 text-[10px] sm:text-[11px] font-medium tracking-wide flex items-center justify-center rounded-lg mb-1.5">
               WATCH THE VIDEO BELOW TO SEE HOW THE PROGRAM WORKS
@@ -347,26 +341,6 @@ export default function SecretLandingPage() {
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
               />
-
-              {/* Play overlay */}
-              {!isVideoPlaying && (
-                <button
-                  type="button"
-                  onClick={handlePlayVideo}
-                  onPointerDown={handlePlayVideo}
-                  className="absolute inset-0 bg-[#08090c]/90 flex flex-col items-center justify-center backdrop-blur-sm cursor-pointer"
-                  aria-label="Play video presentation"
-                >
-                  <span className="group relative w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-105 transition-all duration-300">
-                    <Play className="w-8 h-8 text-[#08090c] ml-1" fill="currentColor" />
-                    <span className="absolute inset-0 rounded-full border border-amber-400/30 animate-ping opacity-20" />
-                  </span>
-                  <p className="mt-6 text-slate-400 font-[family-name:var(--font-outfit)] text-sm tracking-wide">
-                    Click to watch presentation
-                  </p>
-                </button>
-              )}
-
             </div>
 
           </div>
