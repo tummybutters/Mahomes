@@ -7,16 +7,15 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
-  // Force rebuild
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const pathname = usePathname()
-  const isHome = pathname === '/'
 
   const leftLinks = [
     { href: '/', label: 'Home' },
     { href: '/capital-solutions', label: 'Capital Solutions' },
     { href: '/transactions', label: 'Transactions' },
+    { href: '/client-success', label: 'Client Success' },
   ]
 
   const rightLinks = [

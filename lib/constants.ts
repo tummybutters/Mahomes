@@ -10,6 +10,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/capital-solutions", label: "Capital Solutions" },
   { href: "/transactions", label: "Transactions" },
+  { href: "/client-success", label: "Client Success" },
   { href: "/about", label: "About" },
   { href: "/capital-group", label: "Capital Group" },
   { href: "/workingcapital", label: "Schedule a Meeting" },
