@@ -457,20 +457,10 @@ export default function SecretLandingPage() {
                 onClick={() => setActiveStoryVideo(story)}
                 className="group text-left border border-white/[0.08] bg-[#0b0d11]/90 hover:border-amber-400/25 transition-colors"
               >
-                <div className="p-3 flex items-center gap-3">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
-                    <Image
-                      src={story.poster}
-                      alt={story.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs text-slate-100 font-medium leading-tight">{story.title}</p>
-                    <p className="text-[11px] text-amber-300/75 leading-tight mt-0.5">{story.metric}</p>
-                    <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{story.location}</p>
-                  </div>
+                <div className="p-3">
+                  <p className="text-xs text-slate-100 font-medium leading-tight">{story.title}</p>
+                  <p className="text-[11px] text-amber-300/75 leading-tight mt-0.5">{story.metric}</p>
+                  <p className="text-[11px] text-slate-500 leading-tight mt-0.5">{story.location}</p>
                 </div>
 
                 <div className="relative aspect-video border-t border-white/[0.08] overflow-hidden bg-black">
