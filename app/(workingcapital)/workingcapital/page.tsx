@@ -356,12 +356,12 @@ export default function SecretLandingPage() {
 
           {/* Main Headline */}
           <div className="text-center mb-4 md:mb-3">
-            <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1] md:leading-[1.08] mb-2.5 md:mb-2">
+            <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.16] md:leading-[1.12] mb-3.5 md:mb-2.5">
               <span className="text-gradient-gold">SECURE $50,000–$500,000</span>
               <br />
               <span className="text-slate-100">IN 0% WORKING CAPITAL</span>
             </h1>
-            <h2 className="max-w-4xl mx-auto font-[family-name:var(--font-outfit)] text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light tracking-tight leading-[1.28] sm:leading-[1.22] px-1">
+            <h2 className="max-w-4xl mx-auto font-[family-name:var(--font-outfit)] text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light tracking-tight leading-[1.4] sm:leading-[1.3] md:leading-[1.22] px-1">
               START OR SCALE YOUR REAL ESTATE BUSINESS
               <br />
               <span className="border-b-2 border-amber-500/40 pb-0.5">IN 7 - 14 DAYS</span>
@@ -390,7 +390,7 @@ export default function SecretLandingPage() {
 
           </div>
 
-          <div className="flex flex-col items-center mt-5 md:mt-1.5 mb-3">
+          <div className="flex flex-col items-center mt-[30px] md:mt-1.5 mb-3">
             <button
               type="button"
               onClick={handleTypeformOpen}
