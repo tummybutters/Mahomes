@@ -84,7 +84,7 @@ const TESTIMONIALS = [
   },
 ]
 
-const VSL_WISTIA_ID = 'pznzsyy6fg'
+const VSL_WISTIA_ID = '51971ywvc0'
 const VSL_PREVIEW_URL = `https://fast.wistia.net/embed/iframe/${VSL_WISTIA_ID}?seo=false&videoFoam=true`
 
 const CLIENT_SUCCESS_VIDEOS = [
@@ -93,21 +93,21 @@ const CLIENT_SUCCESS_VIDEOS = [
     metric: '$290,000 in Working Capital',
     location: 'Secured in 11 days',
     poster: '/images/testimonials/marcus_d_portrait.png',
-    videoId: 'o6bwujd87k',
+    videoId: 'pznzsyy6fg',
   },
   {
     title: 'Charlie',
     metric: '$320,000 in Working Capital',
     location: 'Approved across two rounds in a few weeks',
     poster: '/images/testimonials/brandon_t_portrait.png',
-    videoId: 'chii35ppsx',
+    videoId: 'o6bwujd87k',
   },
   {
     title: 'Jason',
     metric: '$125,000 in 0% Working Capital',
     location: 'Secured in 8 days',
     poster: '/images/testimonials/jennifer_r_portrait.png',
-    videoId: '51971ywvc0',
+    videoId: 'chii35ppsx',
   },
 ]
 

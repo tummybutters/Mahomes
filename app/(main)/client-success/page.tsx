@@ -44,7 +44,7 @@ const INVESTOR_OUTCOMES: InvestorOutcome[] = [
     quote: '"Without the capital I was able to secure, I would have failed."',
     before: 'Cash tied up in renovations and down payments, forcing long gaps between deals and keeping him working as a technician.',
     after: 'Running multiple BRRRR projects simultaneously with available working capital and operating as a full time real estate investor.',
-    videoId: 'o6bwujd87k',
+    videoId: 'pznzsyy6fg',
     proofStats: [
       { label: 'Capital Accessed', value: '$290K' },
       { label: 'Funding Speed', value: '11 Days' },
@@ -74,7 +74,7 @@ const INVESTOR_OUTCOMES: InvestorOutcome[] = [
     quote: '"Momentum. You gave me the revolving capital I needed to scale my flipping business."',
     before: 'Limited to one flip at a time using personal cash while working a 9-to-5.',
     after: 'Running multiple flips simultaneously with revolving working capital and scaling his business full time.',
-    videoId: 'chii35ppsx',
+    videoId: 'o6bwujd87k',
     proofStats: [
       { label: 'Capital Accessed', value: '$320K' },
       { label: 'Approval Rounds', value: '2 Rounds' },
@@ -101,7 +101,7 @@ const INVESTOR_OUTCOMES: InvestorOutcome[] = [
     quote: '"I went from wanting to be a real estate investor to actually being one."',
     before: 'Waiting to save capital without access to deal structuring or off market opportunities.',
     after: 'Portfolio owner with a repeatable acquisition strategy using strategic working capital and deal structuring guidance.',
-    videoId: '51971ywvc0',
+    videoId: 'chii35ppsx',
     proofStats: [
       { label: 'Capital Accessed', value: '$125K at 0%' },
       { label: 'Funding Speed', value: '8 Days' },
