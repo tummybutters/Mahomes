@@ -356,12 +356,12 @@ export default function SecretLandingPage() {
 
           {/* Main Headline */}
           <div className="text-center mb-4 md:mb-3">
-            <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.19] md:leading-[1.14] mb-4 md:mb-3">
+            <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.25] md:leading-[1.18] mb-4 md:mb-3">
               <span className="text-gradient-gold">SECURE $50,000–$500,000</span>
               <br />
               <span className="text-slate-100">IN 0% WORKING CAPITAL</span>
             </h1>
-            <h2 className="max-w-4xl mx-auto font-[family-name:var(--font-outfit)] text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light tracking-tight leading-[1.46] sm:leading-[1.34] md:leading-[1.24] px-1">
+            <h2 className="max-w-4xl mx-auto font-[family-name:var(--font-outfit)] text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light tracking-tight leading-[1.58] sm:leading-[1.42] md:leading-[1.28] px-1">
               START OR SCALE YOUR REAL ESTATE BUSINESS
               <br />
               <span className="border-b-2 border-amber-500/40 pb-0.5">IN 7 - 14 DAYS</span>
