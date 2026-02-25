@@ -86,6 +86,22 @@ const TESTIMONIALS = [
 
 const VSL_WISTIA_ID = '51971ywvc0'
 const VSL_PREVIEW_URL = `https://fast.wistia.net/embed/iframe/${VSL_WISTIA_ID}?seo=false&videoFoam=true`
+const TRACKING_STORAGE_KEY = 'wc_tracking_params_v1'
+const TRACKING_KEYS = ['fbclid', 'fbc', 'fbp', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const
+
+type TrackingFields = Partial<Record<(typeof TRACKING_KEYS)[number], string>>
+
+const readCookieValue = (cookieName: string): string | undefined => {
+  if (typeof document === 'undefined') return undefined
+  const escapedCookieName = cookieName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const cookieMatch = document.cookie.match(new RegExp(`(?:^|; )${escapedCookieName}=([^;]*)`))
+  if (!cookieMatch) return undefined
+  try {
+    return decodeURIComponent(cookieMatch[1])
+  } catch {
+    return cookieMatch[1]
+  }
+}
 
 const CLIENT_SUCCESS_VIDEOS = [
   {
@@ -115,10 +131,12 @@ const SchedulerEmbed = memo(function SchedulerEmbed({
   typeformId,
   isOpen,
   schedulerRef,
+  hiddenFields,
 }: {
   typeformId: string
   isOpen: boolean
   schedulerRef: React.RefObject<HTMLDivElement>
+  hiddenFields?: Record<string, string>
 }) {
   return (
     <div
@@ -141,6 +159,7 @@ const SchedulerEmbed = memo(function SchedulerEmbed({
           style={{ width: '100%', height: '620px' }}
           className="w-full"
           transitiveSearchParams
+          hidden={hiddenFields}
           hideFooter
           inlineOnMobile
           lazy={false}
@@ -158,6 +177,7 @@ export default function SecretLandingPage() {
   const carouselRef = useRef<HTMLDivElement>(null)
   const schedulerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
+  const [trackingFields, setTrackingFields] = useState<Record<string, string>>({})
 
   const trackMetaEvent = (eventName: string, params?: Record<string, unknown>) => {
     if (typeof window === 'undefined' || typeof window.fbq !== 'function') return
@@ -187,6 +207,62 @@ export default function SecretLandingPage() {
     return () => {
       appendedLinks.forEach((link) => link.remove())
     }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const currentUrl = new URL(window.location.href)
+    const trackingFieldsCandidate: TrackingFields = {}
+
+    TRACKING_KEYS.forEach((key) => {
+      const value = currentUrl.searchParams.get(key)
+      if (value) trackingFieldsCandidate[key] = value
+    })
+
+    const cookieFbp = readCookieValue('_fbp')
+    const cookieFbc = readCookieValue('_fbc')
+    if (!trackingFieldsCandidate.fbp && cookieFbp) trackingFieldsCandidate.fbp = cookieFbp
+    if (!trackingFieldsCandidate.fbc && cookieFbc) trackingFieldsCandidate.fbc = cookieFbc
+
+    if (!trackingFieldsCandidate.fbc && trackingFieldsCandidate.fbclid) {
+      trackingFieldsCandidate.fbc = `fb.1.${Date.now()}.${trackingFieldsCandidate.fbclid}`
+    }
+
+    const persistedRaw = window.localStorage.getItem(TRACKING_STORAGE_KEY)
+    if (persistedRaw) {
+      try {
+        const persisted = JSON.parse(persistedRaw) as TrackingFields
+        TRACKING_KEYS.forEach((key) => {
+          if (!trackingFieldsCandidate[key] && persisted[key]) {
+            trackingFieldsCandidate[key] = persisted[key]
+          }
+        })
+      } catch {
+        // Ignore malformed storage.
+      }
+    }
+
+    TRACKING_KEYS.forEach((key) => {
+      const value = trackingFieldsCandidate[key]
+      if (!value) return
+      if (!currentUrl.searchParams.get(key)) {
+        currentUrl.searchParams.set(key, value)
+      }
+    })
+
+    window.localStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(trackingFieldsCandidate))
+
+    const nextUrl = currentUrl.toString()
+    if (nextUrl !== window.location.href) {
+      window.history.replaceState({}, '', nextUrl)
+    }
+
+    setTrackingFields(
+      Object.fromEntries(
+        TRACKING_KEYS.map((key) => [key, trackingFieldsCandidate[key]]).filter(([, value]) => Boolean(value))
+      ) as Record<string, string>
+    )
   }, [])
 
   useEffect(() => {
@@ -413,6 +489,7 @@ export default function SecretLandingPage() {
             typeformId={TYPEFORM_ID}
             isOpen={isSchedulerOpen}
             schedulerRef={schedulerRef}
+            hiddenFields={trackingFields}
           />
         </div>
       </section>
