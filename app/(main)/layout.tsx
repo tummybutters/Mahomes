@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    shortcut: '/favicon-16.png',
+    apple: '/apple-touch-icon.png',
   },
   alternates: {
     canonical: '/',
