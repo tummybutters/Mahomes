@@ -96,7 +96,7 @@ export const footerLinks = {
   contact: {
     phone: "(646) 809-5505",
     email: "support@malohncapital.com",
-    address: "48 Wall Street, Suite 1100, New York, NY 10005",
+    address: "48 Wall Street Suite 1100-21\nNew York, NY 10005",
   },
   social: [
     { platform: "Instagram", href: "#" },
