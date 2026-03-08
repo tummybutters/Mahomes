@@ -21,6 +21,8 @@ const playfair = Playfair_Display({
   weight: ['500', '600', '700'],
 })
 
+const FAVICON_VERSION = '20260308'
+
 export const metadata: Metadata = {
   metadataBase,
   title: {
@@ -28,15 +30,16 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  manifest: '/site.webmanifest',
+  manifest: `/site.webmanifest?v=${FAVICON_VERSION}`,
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: `/favicon.ico?v=${FAVICON_VERSION}` },
+      { url: `/favicon-16x16.png?v=${FAVICON_VERSION}`, sizes: '16x16', type: 'image/png' },
+      { url: `/favicon-32x32.png?v=${FAVICON_VERSION}`, sizes: '32x32', type: 'image/png' },
+      { url: `/favicon-48x48.png?v=${FAVICON_VERSION}`, sizes: '48x48', type: 'image/png' },
     ],
-    shortcut: '/favicon.ico',
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: `/favicon.ico?v=${FAVICON_VERSION}`,
+    apple: [{ url: `/apple-touch-icon.png?v=${FAVICON_VERSION}`, sizes: '180x180', type: 'image/png' }],
   },
   alternates: {
     canonical: '/',
